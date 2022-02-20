@@ -12,3 +12,12 @@ else
 {
     <div class="alert alert-warning"><strong>HTTP:</strong> Your connection is NOT secure</div>
 }
+
+<h4>Headers</h4>
+<hr />
+<ul>
+    @foreach(var h in Request.Headers)
+    {
+        <li><strong>@h.Key:</strong> @h.Value</li>
+    }
+</ul>
