@@ -1,0 +1,11 @@
+﻿@page
+@model IndexModel
+
+ @if (Request.IsHttps)
+{
+    <div class="alert alert-success"><strong>HTTPS:</strong> You are using a secure connection</div>
+}
+else
+{
+    <div class="alert alert-warning"><strong>HTTP:</strong> You connection is NOT secure</div>
+}
