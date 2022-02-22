@@ -10,8 +10,8 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.ForwardedHeaders =
         ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
     //ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
-    //options.KnownNetworks.Clear();
-    //options.KnownProxies.Clear();
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
 });
 
 var app = builder.Build();
