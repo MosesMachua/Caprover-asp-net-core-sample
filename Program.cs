@@ -5,23 +5,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+//ADD: Configure middleware to add X-Forwarded-For and X-Forwarded-Proto headers
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
-    options.ForwardedHeaders =
-        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    //ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    //accept all networks and proxies
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
 
 var app = builder.Build();
 
-//app.UseForwardedHeaders();
-
-//app.UseForwardedHeaders(new ForwardedHeadersOptions
-//{
-//    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost
-//});
+//ADD: use ForwardedHeaders middleware
+app.UseForwardedHeaders();
 
 
 // Configure the HTTP request pipeline.
@@ -32,8 +28,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//not needed as nginx proxy server handling https
+//REMOVE: not needed as nginx proxy server handling https
 //app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
